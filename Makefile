@@ -1,8 +1,25 @@
-all:
-	nasm -felf64 test.asm && ld test.o
+AS = nasm
+LD = ld
+ASFLAGS = -f elf -g
+LDFLAGS = -m elf_i386
+SRCS = test.asm
+OBJS = $(SRCS:.asm=.o)
+BIN = a.out
 
-run:
-	./a.out
+.PHONY: depend clean
+
+all: $(BIN)
+
+$(BIN): $(OBJS)
+	$(LD) $(LDFLAGS) -o $(BIN) $(OBJS)
+
+# .asm.o:
+# 	$(AS) $(ASFLAGS) $< -o $@
+
+%.o : %.asm
+	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm a.out test.o
+	rm *.o $(BIN)
+run:
+	./$(BIN)
