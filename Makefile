@@ -20,6 +20,6 @@ $(BIN): $(OBJS)
 	$(AS) $(ASFLAGS) $< -o $@
 
 clean:
-	rm *.o $(BIN)
+	rm -f *.o $(BIN)
 run:
 	./$(BIN)
