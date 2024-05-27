@@ -2,7 +2,7 @@ AS = nasm
 LD = ld
 ASFLAGS = -f elf -g
 LDFLAGS = -m elf_i386
-SRCS = test.asm
+SRCS = main.asm
 OBJS = $(SRCS:.asm=.o)
 BIN = a.out
 

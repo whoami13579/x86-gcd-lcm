@@ -11,8 +11,9 @@ section .bss
 SECTION .text
 
 section .data
-    number1 dw 0
-    number2 dw 0
+    number1 dd 0
+    number2 dd 0
+    gcd dd 0
 
 global  _start
  
@@ -61,8 +62,26 @@ convert2:
     jmp convert2
 
 done2:
+    mov [number2], eax
     mov ebx, [number1]
-    add eax, ebx
+
+loop:
+    xor edx, edx
+    div ebx
+    mov eax, ebx
+    mov ebx, edx
+    cmp ebx, 0
+    jnz loop
+    mov [gcd], eax
+    call    iprintLF        ; NOTE call our new integer printing function (itoa)
+
+    mov eax, [number1]
+    mov ebx, [number2]
+    mul ebx
+
+    mov ebx, [gcd]
+    xor edx, edx
+    div ebx
     call    iprintLF        ; NOTE call our new integer printing function (itoa)
  
     call    quit
